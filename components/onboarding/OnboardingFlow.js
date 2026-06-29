@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import ThemeToggle from "../ThemeToggle";
 import styles from "../../styles/Onboarding.module.css";
 
 const STEPS = [
@@ -135,9 +136,12 @@ export default function OnboardingFlow() {
       <div className={`${styles.glowOrb} ${styles.glowOrbOne}`} />
       <div className={`${styles.glowOrb} ${styles.glowOrbTwo}`} />
 
-      <button type="button" className={styles.skipLink} onClick={finish}>
-        Skip
-      </button>
+      <div className={styles.topBar}>
+        <ThemeToggle />
+        <button type="button" className={styles.skipLink} onClick={finish}>
+          Skip
+        </button>
+      </div>
 
       <div className={styles.card}>
         <div className={styles.progressTrack}>
