@@ -2,21 +2,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
-  color: #333;
+  background: var(--color-header-bg);
+  color: var(--color-header-text);
   height: 60px;
   padding: 0 30px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px var(--color-header-shadow);
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .header a {
-  color: #333;
+  color: var(--color-header-text);
   margin-right: 20px;
 }
 
 .header a:hover {
-  color: #000;
+  color: var(--color-header-text-hover);
 }
+
 .header ul {
   display: flex;
   align-items: center;
@@ -25,13 +27,13 @@
 }
 
 .logo {
-  color: red;
+  color: var(--color-accent);
   font-size: 20px;
   text-transform: uppercase;
 }
 
 .logo a {
-  color: red;
+  color: var(--color-accent);
 }
 
 @media (max-width: 768px) {

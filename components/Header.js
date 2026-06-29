@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 import styles from "../styles/Header.module.css";
 
 export const Header = () => {
@@ -16,6 +17,9 @@ export const Header = () => {
             <Link href="/events">
               <a>Events</a>
             </Link>
+          </li>
+          <li>
+            <ThemeToggle />
           </li>
         </ul>
       </nav>

@@ -1,5 +1,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+:root,
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #333333;
+  --color-text-strong: #000000;
+  --color-link: steelblue;
+  --color-accent: red;
+  --color-btn-primary-bg: red;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-secondary-bg: #000000;
+  --color-btn-secondary-text: #ffffff;
+  --color-header-bg: #ffffff;
+  --color-header-text: #333333;
+  --color-header-text-hover: #000000;
+  --color-header-shadow: rgba(0, 0, 0, 0.1);
+  --color-toggle-bg: #f0f0f0;
+  --color-toggle-text: #333333;
+  --color-toggle-border: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-text-strong: #ffffff;
+  --color-link: #6eb5ff;
+  --color-accent: #ff4444;
+  --color-btn-primary-bg: #cc0000;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-secondary-bg: #333333;
+  --color-btn-secondary-text: #ffffff;
+  --color-header-bg: #1e1e1e;
+  --color-header-text: #e0e0e0;
+  --color-header-text-hover: #ffffff;
+  --color-header-shadow: rgba(0, 0, 0, 0.4);
+  --color-toggle-bg: #2a2a2a;
+  --color-toggle-text: #e0e0e0;
+  --color-toggle-border: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,9 +63,15 @@ body {
   line-height: 1.8;
 }
 
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 a {
   text-decoration: none;
-  color: steelblue;
+  color: var(--color-link);
 }
 
 p {
@@ -23,12 +80,13 @@ p {
 
 h1 {
   margin-bottom: 20px;
+  color: var(--color-text-strong);
 }
 
 .btn {
   display: inline-block;
-  background: red;
-  color: #fff;
+  background: var(--color-btn-primary-bg);
+  color: var(--color-btn-primary-text);
   padding: 10px 20px;
   cursor: pointer;
   border: 0;
@@ -42,8 +100,8 @@ h1 {
 .btn-secondary {
   font: inherit;
   font-size: 13px;
-  background: #000;
-  color: #fff !important;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text) !important;
   border: 0;
   border-radius: 5px;
   padding: 5px 15px;
