@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import ThemeToggle from "../ThemeToggle";
 import styles from "../../styles/Onboarding.module.css";
 
@@ -12,6 +13,7 @@ const STEPS = [
     subtitle:
       "Learn the squat setup with a guided anatomy overlay so you can lock in safe, repeatable form from day one.",
     showHero: true,
+    heroImage: "/images/onboarding/hero-squat.jpg",
     heroTracks: [
       { label: "Alignment score", value: 96 },
       { label: "Muscle load", value: 91 },
@@ -24,25 +26,25 @@ const STEPS = [
     badge: "Discover",
     title: "Browse events that match your vibe",
     subtitle: "Filter by genre, location, and date to find exactly what you're looking for.",
-    stepVisual: "discover",
+    stepImage: "/images/onboarding/step-discover.jpg",
     features: [
       {
         icon: "📍",
         title: "Events near you",
         description: "See what's happening in your city this weekend.",
-        image: "nearby-map",
+        image: "/images/onboarding/feature-nearby.jpg",
       },
       {
         icon: "🎵",
         title: "Every genre",
         description: "From house and techno to hip-hop and drum & bass.",
-        image: "genre-wave",
+        image: "/images/onboarding/feature-genres.jpg",
       },
       {
         icon: "⭐",
         title: "Curated picks",
         description: "Hand-picked highlights from the best venues and DJs.",
-        image: "curated-star",
+        image: "/images/onboarding/feature-curated.jpg",
       },
     ],
   },
@@ -52,25 +54,25 @@ const STEPS = [
     badge: "Host",
     title: "Create and promote your events",
     subtitle: "Whether you're a DJ, promoter, or venue — get your event in front of the right crowd.",
-    stepVisual: "host",
+    stepImage: "/images/onboarding/step-host.jpg",
     features: [
       {
         icon: "✏️",
         title: "Easy event creation",
         description: "Add details, set the vibe, and publish in minutes.",
-        image: "event-edit",
+        image: "/images/onboarding/feature-create.jpg",
       },
       {
         icon: "📣",
         title: "Reach your audience",
         description: "Share with fans who love your sound.",
-        image: "promotion-reach",
+        image: "/images/onboarding/feature-reach.jpg",
       },
       {
         icon: "📊",
         title: "Track interest",
         description: "See who's excited about your upcoming sets.",
-        image: "interest-analytics",
+        image: "/images/onboarding/feature-analytics.jpg",
       },
     ],
   },
@@ -80,7 +82,7 @@ const STEPS = [
     badge: "Personalize",
     title: "What gets you moving?",
     subtitle: "Pick your favorite genres so we can surface events you'll love.",
-    stepVisual: "personalize",
+    stepImage: "/images/onboarding/step-personalize.jpg",
     genres: ["House", "Techno", "EDM", "Hip-Hop", "Drum & Bass", "Trance", "Disco", "Afrobeats"],
   },
   {
@@ -89,9 +91,16 @@ const STEPS = [
     badge: "You're all set",
     title: "Let's hit the dance floor",
     subtitle: "Your personalized feed is ready. Time to explore the best parties in town.",
-    stepVisual: "ready",
+    stepImage: "/images/onboarding/step-ready.jpg",
     showConfetti: true,
   },
+];
+
+const HERO_MARKERS = [
+  { id: "hip", top: "46%", left: "47%" },
+  { id: "knee", top: "66%", left: "40%" },
+  { id: "ankle", top: "84%", left: "45%" },
+  { id: "shoulder", top: "28%", left: "52%" },
 ];
 
 const STORAGE_KEY = "dj-events-onboarding-complete";
@@ -104,116 +113,6 @@ export function isOnboardingComplete() {
 export function markOnboardingComplete() {
   if (typeof window === "undefined") return;
   localStorage.setItem(STORAGE_KEY, "true");
-}
-
-function FeatureIllustration({ type, label }) {
-  switch (type) {
-    case "nearby-map":
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <path d="M18 52 L40 36 L56 44 L82 24 L102 34" />
-          <circle cx="40" cy="36" r="4.5" />
-          <circle cx="82" cy="24" r="4.5" />
-        </svg>
-      );
-    case "genre-wave":
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <path d="M14 50 C24 36, 34 62, 44 46 C54 30, 66 60, 76 44 C86 28, 98 56, 108 40" />
-          <path d="M14 58 C24 44, 34 68, 44 54 C54 40, 66 66, 76 52 C86 36, 98 64, 108 50" />
-        </svg>
-      );
-    case "curated-star":
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <polygon points="60,18 67,34 84,36 72,47 76,64 60,55 44,64 48,47 36,36 53,34" />
-          <circle cx="28" cy="24" r="3.5" />
-          <circle cx="92" cy="26" r="3.5" />
-        </svg>
-      );
-    case "event-edit":
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <rect x="20" y="18" width="52" height="38" rx="8" />
-          <path d="M78 48 L98 28 L104 34 L84 54 L76 56 Z" />
-          <path d="M28 30 H60 M28 38 H54 M28 46 H48" />
-        </svg>
-      );
-    case "promotion-reach":
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <path d="M20 42 L54 28 L54 50 L20 36 Z" />
-          <path d="M54 32 C70 28, 82 28, 100 18 M54 40 C70 40, 82 40, 100 40 M54 48 C70 52, 82 52, 100 62" />
-          <circle cx="100" cy="40" r="4" />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
-          <rect x="2" y="2" width="116" height="72" rx="12" />
-          <path d="M18 56 L36 42 L54 46 L76 30 L102 24" />
-          <circle cx="36" cy="42" r="4.5" />
-          <circle cx="76" cy="30" r="4.5" />
-          <circle cx="102" cy="24" r="4.5" />
-        </svg>
-      );
-  }
-}
-
-function StepVisual({ type, label }) {
-  switch (type) {
-    case "discover":
-      return (
-        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
-          <rect x="8" y="12" width="304" height="136" rx="20" />
-          <path d="M36 112 L78 82 L112 92 L160 62 L212 74 L284 46" />
-          <circle cx="78" cy="82" r="6" />
-          <circle cx="160" cy="62" r="6" />
-          <circle cx="284" cy="46" r="6" />
-          <path d="M36 126 H124 M36 136 H176" />
-        </svg>
-      );
-    case "host":
-      return (
-        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
-          <rect x="8" y="12" width="304" height="136" rx="20" />
-          <rect x="34" y="34" width="112" height="86" rx="12" />
-          <path d="M54 58 H126 M54 74 H118 M54 90 H112" />
-          <path d="M188 102 L228 62 L252 86 L212 126 L184 132 Z" />
-          <circle cx="256" cy="42" r="16" />
-          <path d="M250 42 H262 M256 36 V48" />
-        </svg>
-      );
-    case "personalize":
-      return (
-        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
-          <rect x="8" y="12" width="304" height="136" rx="20" />
-          <circle cx="160" cy="80" r="42" />
-          <circle cx="160" cy="80" r="22" />
-          <path d="M160 38 V26 M160 134 V122 M202 80 H214 M106 80 H118 M190 50 L200 40 M130 110 L120 120" />
-          <path d="M158 80 L186 64" />
-        </svg>
-      );
-    case "ready":
-      return (
-        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
-          <rect x="8" y="12" width="304" height="136" rx="20" />
-          <polygon points="160,36 172,64 202,66 180,84 188,112 160,96 132,112 140,84 118,66 148,64" />
-          <circle cx="76" cy="52" r="7" />
-          <circle cx="252" cy="50" r="7" />
-          <circle cx="96" cy="116" r="5" />
-          <circle cx="230" cy="116" r="5" />
-          <path d="M118 126 H202" />
-        </svg>
-      );
-    default:
-      return null;
-  }
 }
 
 export default function OnboardingFlow() {
@@ -292,48 +191,26 @@ export default function OnboardingFlow() {
           {step.showHero && (
             <div className={styles.hero}>
               <div className={styles.heroVisual}>
-                <svg
-                  className={styles.heroSvg}
-                  viewBox="0 0 360 220"
-                  role="img"
-                  aria-label="Animated squat posture anatomy scan"
-                >
-                  <ellipse className={styles.heroPulse} cx="192" cy="112" rx="66" ry="44" />
-
-                  <g className={styles.heroBarbell}>
-                    <path d="M114 72 H270" />
-                    <rect x="104" y="64" width="10" height="16" rx="2" />
-                    <rect x="270" y="64" width="10" height="16" rx="2" />
-                    <rect x="96" y="60" width="8" height="24" rx="2" />
-                    <rect x="280" y="60" width="8" height="24" rx="2" />
-                  </g>
-
-                  <g className={styles.heroBody}>
-                    <circle className={styles.heroHead} cx="192" cy="44" r="16" />
-                    <path className={styles.heroBone} d="M192 60 L192 108" />
-                    <path className={styles.heroBone} d="M192 82 L146 104 L110 126" />
-                    <path className={styles.heroBone} d="M192 84 L226 96 L252 108" />
-                    <path className={styles.heroBone} d="M192 108 L160 138 L132 172" />
-                    <path className={styles.heroBone} d="M192 108 L228 130 L260 160" />
-                  </g>
-
-                  <g className={styles.heroMuscles}>
-                    <ellipse className={styles.heroMuscleCore} cx="192" cy="88" rx="18" ry="24" />
-                    <ellipse className={styles.heroMuscleQuad} cx="168" cy="132" rx="12" ry="18" />
-                    <ellipse className={styles.heroMuscleGlute} cx="205" cy="126" rx="14" ry="16" />
-                    <ellipse className={styles.heroMuscleCalf} cx="143" cy="166" rx="10" ry="14" />
-                  </g>
-
-                  <g className={styles.heroJoints}>
-                    <circle className={styles.heroJoint} cx="192" cy="82" r="4.5" />
-                    <circle className={styles.heroJoint} cx="192" cy="108" r="4.5" />
-                    <circle className={styles.heroJoint} cx="160" cy="138" r="4.5" />
-                    <circle className={styles.heroJoint} cx="132" cy="172" r="4.5" />
-                    <circle className={styles.heroJoint} cx="228" cy="130" r="4.5" />
-                  </g>
-                </svg>
+                <div className={styles.heroImageWrap}>
+                  <Image
+                    src={step.heroImage}
+                    alt="Athlete performing a barbell squat with an anatomy scan overlay"
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                  />
+                </div>
 
                 <div className={styles.scanSweep} />
+
+                {HERO_MARKERS.map((marker) => (
+                  <span
+                    key={marker.id}
+                    className={styles.heroMarker}
+                    style={{ top: marker.top, left: marker.left }}
+                  />
+                ))}
+
                 <div className={styles.heroAnnotations}>
                   <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
                   <div className={styles.heroTagRow}>
@@ -369,16 +246,21 @@ export default function OnboardingFlow() {
             </div>
           )}
 
-          {step.icon && !step.stepVisual && <div className={styles.iconWrap}>{step.icon}</div>}
+          {step.icon && !step.stepImage && <div className={styles.iconWrap}>{step.icon}</div>}
 
           <h1 className={`${styles.title} ${step.showHero ? styles.heroTitle : ""}`}>{step.title}</h1>
           <p className={`${styles.subtitle} ${step.showHero ? styles.heroSubtitle : ""}`}>
             {step.subtitle}
           </p>
 
-          {!step.showHero && step.stepVisual && (
+          {!step.showHero && step.stepImage && (
             <div className={styles.stepVisual}>
-              <StepVisual type={step.stepVisual} label={step.title} />
+              <Image
+                src={step.stepImage}
+                alt={`${step.title} visual`}
+                layout="fill"
+                objectFit="cover"
+              />
             </div>
           )}
 
@@ -387,7 +269,12 @@ export default function OnboardingFlow() {
               {step.features.map((feature) => (
                 <li key={feature.title} className={styles.featureItem}>
                   <div className={styles.featureMedia}>
-                    <FeatureIllustration type={feature.image} label={feature.title} />
+                    <Image
+                      src={feature.image}
+                      alt={`${feature.title} illustration`}
+                      layout="fill"
+                      objectFit="cover"
+                    />
                   </div>
                   <div className={styles.featureBody}>
                     <span className={styles.featureIcon}>{feature.icon}</span>
