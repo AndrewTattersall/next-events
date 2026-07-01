@@ -162,9 +162,7 @@
 
 .hero {
   margin: 0 0 30px;
-  --hero-label-size: 0.62rem;
-  --hero-track-size: 0.78rem;
-  --hero-track-value-size: 0.74rem;
+  --hero-overlay-text-size: 0.6rem;
 }
 
 .heroVisual {
@@ -301,10 +299,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--hero-label-size);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: var(--hero-overlay-text-size);
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--color-text-muted);
   background: transparent;
   border: 0;
@@ -375,7 +372,7 @@
 }
 
 .heroTrackLabel {
-  font-size: var(--hero-track-size);
+  font-size: var(--hero-overlay-text-size);
   font-weight: 500;
   color: var(--color-text-muted);
   line-height: 1.25;
@@ -385,11 +382,12 @@
 }
 
 .heroTrackValue {
-  font-size: var(--hero-track-value-size);
-  font-weight: 600;
+  font-size: var(--hero-overlay-text-size);
+  font-weight: 500;
   color: var(--color-text);
   white-space: nowrap;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .heroTrackBar {
@@ -745,9 +743,7 @@
   }
 
   .hero {
-    --hero-label-size: 0.58rem;
-    --hero-track-size: 0.74rem;
-    --hero-track-value-size: 0.72rem;
+    --hero-overlay-text-size: 0.56rem;
   }
 
   .heroVisual {
@@ -824,13 +820,11 @@
   }
 
   .hero {
-    --hero-label-size: 0.56rem;
-    --hero-track-size: 0.72rem;
-    --hero-track-value-size: 0.7rem;
+    --hero-overlay-text-size: 0.52rem;
   }
 
   .heroTag {
-    letter-spacing: 0.06em;
+    letter-spacing: 0.01em;
   }
 
   .heroAnnotations {
