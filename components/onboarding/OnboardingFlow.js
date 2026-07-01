@@ -13,9 +13,9 @@ const STEPS = [
       "Learn the squat setup with a guided anatomy overlay so you can lock in safe, repeatable form from day one.",
     showHero: true,
     heroTracks: [
-      { label: "Joint alignment scan", value: 96 },
-      { label: "Muscle loading", value: 91 },
-      { label: "Knee tracking", value: 92 },
+      { label: "Alignment score", value: 96 },
+      { label: "Muscle load", value: 91 },
+      { label: "Knee path", value: 92 },
     ],
   },
   {
@@ -24,6 +24,7 @@ const STEPS = [
     badge: "Discover",
     title: "Browse events that match your vibe",
     subtitle: "Filter by genre, location, and date to find exactly what you're looking for.",
+    stepVisual: "discover",
     features: [
       {
         icon: "📍",
@@ -51,6 +52,7 @@ const STEPS = [
     badge: "Host",
     title: "Create and promote your events",
     subtitle: "Whether you're a DJ, promoter, or venue — get your event in front of the right crowd.",
+    stepVisual: "host",
     features: [
       {
         icon: "✏️",
@@ -78,6 +80,7 @@ const STEPS = [
     badge: "Personalize",
     title: "What gets you moving?",
     subtitle: "Pick your favorite genres so we can surface events you'll love.",
+    stepVisual: "personalize",
     genres: ["House", "Techno", "EDM", "Hip-Hop", "Drum & Bass", "Trance", "Disco", "Afrobeats"],
   },
   {
@@ -86,6 +89,7 @@ const STEPS = [
     badge: "You're all set",
     title: "Let's hit the dance floor",
     subtitle: "Your personalized feed is ready. Time to explore the best parties in town.",
+    stepVisual: "ready",
     showConfetti: true,
   },
 ];
@@ -158,6 +162,57 @@ function FeatureIllustration({ type, label }) {
           <circle cx="102" cy="24" r="4.5" />
         </svg>
       );
+  }
+}
+
+function StepVisual({ type, label }) {
+  switch (type) {
+    case "discover":
+      return (
+        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
+          <rect x="8" y="12" width="304" height="136" rx="20" />
+          <path d="M36 112 L78 82 L112 92 L160 62 L212 74 L284 46" />
+          <circle cx="78" cy="82" r="6" />
+          <circle cx="160" cy="62" r="6" />
+          <circle cx="284" cy="46" r="6" />
+          <path d="M36 126 H124 M36 136 H176" />
+        </svg>
+      );
+    case "host":
+      return (
+        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
+          <rect x="8" y="12" width="304" height="136" rx="20" />
+          <rect x="34" y="34" width="112" height="86" rx="12" />
+          <path d="M54 58 H126 M54 74 H118 M54 90 H112" />
+          <path d="M188 102 L228 62 L252 86 L212 126 L184 132 Z" />
+          <circle cx="256" cy="42" r="16" />
+          <path d="M250 42 H262 M256 36 V48" />
+        </svg>
+      );
+    case "personalize":
+      return (
+        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
+          <rect x="8" y="12" width="304" height="136" rx="20" />
+          <circle cx="160" cy="80" r="42" />
+          <circle cx="160" cy="80" r="22" />
+          <path d="M160 38 V26 M160 134 V122 M202 80 H214 M106 80 H118 M190 50 L200 40 M130 110 L120 120" />
+          <path d="M158 80 L186 64" />
+        </svg>
+      );
+    case "ready":
+      return (
+        <svg viewBox="0 0 320 160" role="img" aria-label={`${label} visual`}>
+          <rect x="8" y="12" width="304" height="136" rx="20" />
+          <polygon points="160,36 172,64 202,66 180,84 188,112 160,96 132,112 140,84 118,66 148,64" />
+          <circle cx="76" cy="52" r="7" />
+          <circle cx="252" cy="50" r="7" />
+          <circle cx="96" cy="116" r="5" />
+          <circle cx="230" cy="116" r="5" />
+          <path d="M118 126 H202" />
+        </svg>
+      );
+    default:
+      return null;
   }
 }
 
@@ -272,8 +327,8 @@ export default function OnboardingFlow() {
                 <div className={styles.heroAnnotations}>
                   <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
                   <div className={styles.heroTagRow}>
-                    <span className={styles.heroTag}>Muscle loading</span>
-                    <span className={styles.heroTag}>Knee tracking</span>
+                    <span className={`${styles.heroTag} ${styles.heroTagStart}`}>Muscle load</span>
+                    <span className={`${styles.heroTag} ${styles.heroTagEnd}`}>Knee path</span>
                   </div>
                 </div>
               </div>
@@ -304,12 +359,18 @@ export default function OnboardingFlow() {
             </div>
           )}
 
-          {step.icon && <div className={styles.iconWrap}>{step.icon}</div>}
+          {step.icon && !step.stepVisual && <div className={styles.iconWrap}>{step.icon}</div>}
 
           <h1 className={`${styles.title} ${step.showHero ? styles.heroTitle : ""}`}>{step.title}</h1>
           <p className={`${styles.subtitle} ${step.showHero ? styles.heroSubtitle : ""}`}>
             {step.subtitle}
           </p>
+
+          {!step.showHero && step.stepVisual && (
+            <div className={styles.stepVisual}>
+              <StepVisual type={step.stepVisual} label={step.title} />
+            </div>
+          )}
 
           {step.features && (
             <ul className={styles.featureList}>

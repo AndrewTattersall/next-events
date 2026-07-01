@@ -162,9 +162,9 @@
 
 .hero {
   margin: 0 0 30px;
-  --hero-label-size: 0.7rem;
-  --hero-track-size: 0.84rem;
-  --hero-track-value-size: 0.8rem;
+  --hero-label-size: 0.62rem;
+  --hero-track-size: 0.78rem;
+  --hero-track-value-size: 0.74rem;
 }
 
 .heroVisual {
@@ -282,38 +282,54 @@
   justify-content: center;
   font-size: var(--hero-label-size);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--color-text);
-  background: var(--onboarding-surface);
-  border: 1px solid var(--onboarding-border-strong);
-  border-radius: 14px;
-  padding: 6px 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
   line-height: 1.2;
-  white-space: normal;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .heroAnnotations {
   position: absolute;
   z-index: 4;
-  inset: 10px;
+  inset: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .heroTagTop {
   align-self: center;
-  max-width: min(236px, 100%);
+  max-width: min(220px, 100%);
 }
 
 .heroTagRow {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
   align-items: end;
+  width: 100%;
+}
+
+.heroTagStart {
+  justify-self: start;
+  text-align: left;
+}
+
+.heroTagEnd {
+  justify-self: end;
+  text-align: right;
 }
 
 .heroTracks {
@@ -332,9 +348,9 @@
 
 .heroTrackTextRow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 42px;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .heroTrackLabel {
@@ -342,8 +358,9 @@
   font-weight: 500;
   color: var(--color-text-muted);
   line-height: 1.25;
-  white-space: normal;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .heroTrackValue {
@@ -351,6 +368,7 @@
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
+  text-align: right;
 }
 
 .heroTrackBar {
@@ -367,6 +385,45 @@
   border-radius: inherit;
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-warm));
   box-shadow: 0 0 12px var(--onboarding-next-shadow);
+}
+
+.stepVisual {
+  width: 100%;
+  height: 168px;
+  margin: 0 0 24px;
+  border-radius: 16px;
+  border: 1px solid var(--onboarding-border);
+  background: linear-gradient(
+      145deg,
+      var(--onboarding-surface-hover) 0%,
+      var(--onboarding-surface-subtle) 55%
+    ),
+    var(--onboarding-surface);
+  box-shadow: inset 0 1px 0 var(--onboarding-inset-highlight);
+  overflow: hidden;
+}
+
+.stepVisual svg {
+  width: 100%;
+  height: 100%;
+}
+
+.stepVisual svg rect {
+  fill: var(--onboarding-surface);
+  stroke: var(--onboarding-border-strong);
+}
+
+.stepVisual svg path,
+.stepVisual svg polygon {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stepVisual svg circle {
+  fill: var(--color-accent);
 }
 
 .featureList {
@@ -630,9 +687,9 @@
   }
 
   .hero {
-    --hero-label-size: 0.66rem;
-    --hero-track-size: 0.8rem;
-    --hero-track-value-size: 0.76rem;
+    --hero-label-size: 0.58rem;
+    --hero-track-size: 0.74rem;
+    --hero-track-value-size: 0.72rem;
   }
 
   .heroVisual {
@@ -650,6 +707,10 @@
   .featureMedia {
     flex-basis: 96px;
   }
+
+  .stepVisual {
+    height: 154px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -663,7 +724,9 @@
   }
 
   .heroTagRow .heroTag {
-    width: min(170px, 100%);
+    width: min(156px, 100%);
+    text-align: center;
+    justify-self: center;
   }
 
   .featureItem {
@@ -677,6 +740,10 @@
 
   .featureBody {
     width: 100%;
+  }
+
+  .stepVisual {
+    height: 144px;
   }
 }
 
@@ -699,13 +766,13 @@
   }
 
   .hero {
-    --hero-label-size: 0.64rem;
-    --hero-track-size: 0.78rem;
-    --hero-track-value-size: 0.74rem;
+    --hero-label-size: 0.56rem;
+    --hero-track-size: 0.72rem;
+    --hero-track-value-size: 0.7rem;
   }
 
   .heroTag {
-    padding: 5px 8px;
+    letter-spacing: 0.06em;
   }
 
   .heroAnnotations {
@@ -737,5 +804,9 @@
 
   .featureMedia {
     flex-basis: 84px;
+  }
+
+  .stepVisual {
+    height: 134px;
   }
 }
