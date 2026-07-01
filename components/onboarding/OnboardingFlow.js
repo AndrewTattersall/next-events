@@ -7,11 +7,16 @@ const STEPS = [
   {
     id: "welcome",
     icon: null,
-    badge: "Welcome",
-    title: "Find your next night out",
+    badge: "Step 1",
+    title: "Strength Training Fundamentals",
     subtitle:
-      "Discover the hottest DJ events, underground sets, and unforgettable parties near you.",
-    showVinyl: true,
+      "Learn the squat setup with a guided anatomy overlay so you can lock in safe, repeatable form from day one.",
+    showHero: true,
+    heroTracks: [
+      { label: "Joint alignment scan", value: 96 },
+      { label: "Knee tracking", value: 92 },
+      { label: "Hip depth control", value: 88 },
+    ],
   },
   {
     id: "discover",
@@ -133,9 +138,6 @@ export default function OnboardingFlow() {
 
   return (
     <div className={styles.page}>
-      <div className={`${styles.glowOrb} ${styles.glowOrbOne}`} />
-      <div className={`${styles.glowOrb} ${styles.glowOrbTwo}`} />
-
       <div className={styles.topBar}>
         <ThemeToggle />
         <button type="button" className={styles.skipLink} onClick={finish}>
@@ -164,7 +166,63 @@ export default function OnboardingFlow() {
             <span className={styles.badge}>{step.badge}</span>
           </div>
 
-          {step.showVinyl && <div className={styles.vinyl} />}
+          {step.showHero && (
+            <div className={styles.hero}>
+              <div className={styles.heroVisual}>
+                <svg
+                  className={styles.heroSvg}
+                  viewBox="0 0 360 220"
+                  role="img"
+                  aria-label="Animated squat posture anatomy scan"
+                >
+                  <g className={styles.heroBody}>
+                    <circle className={styles.heroHead} cx="192" cy="44" r="16" />
+                    <path className={styles.heroBone} d="M192 60 L192 108" />
+                    <path className={styles.heroBone} d="M192 82 L146 104 L110 126" />
+                    <path className={styles.heroBone} d="M192 84 L226 96 L252 108" />
+                    <path className={styles.heroBone} d="M192 108 L160 138 L132 172" />
+                    <path className={styles.heroBone} d="M192 108 L228 130 L260 160" />
+                  </g>
+
+                  <g className={styles.heroMuscles}>
+                    <ellipse className={styles.heroMuscleCore} cx="192" cy="88" rx="18" ry="24" />
+                    <ellipse className={styles.heroMuscleQuad} cx="168" cy="132" rx="12" ry="18" />
+                    <ellipse className={styles.heroMuscleGlute} cx="205" cy="126" rx="14" ry="16" />
+                    <ellipse className={styles.heroMuscleCalf} cx="143" cy="166" rx="10" ry="14" />
+                  </g>
+
+                  <g className={styles.heroJoints}>
+                    <circle cx="192" cy="82" r="4.5" />
+                    <circle cx="192" cy="108" r="4.5" />
+                    <circle cx="160" cy="138" r="4.5" />
+                    <circle cx="132" cy="172" r="4.5" />
+                    <circle cx="228" cy="130" r="4.5" />
+                  </g>
+                </svg>
+
+                <div className={styles.scanSweep} />
+                <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
+                <span className={`${styles.heroTag} ${styles.heroTagLeft}`}>Core bracing</span>
+                <span className={`${styles.heroTag} ${styles.heroTagRight}`}>Knee tracking</span>
+              </div>
+
+              {step.heroTracks && (
+                <ul className={styles.heroTracks}>
+                  {step.heroTracks.map((track) => (
+                    <li key={track.label} className={styles.heroTrackItem}>
+                      <div className={styles.heroTrackTextRow}>
+                        <span className={styles.heroTrackLabel}>{track.label}</span>
+                        <span className={styles.heroTrackValue}>{track.value}%</span>
+                      </div>
+                      <span className={styles.heroTrackBar}>
+                        <span className={styles.heroTrackFill} style={{ width: `${track.value}%` }} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
 
           {step.showConfetti && (
             <div className={styles.confetti}>
