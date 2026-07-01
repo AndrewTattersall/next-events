@@ -261,34 +261,37 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(0.68rem, 1.35vw, 0.76rem);
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--color-text);
   background: var(--onboarding-surface);
   border: 1px solid var(--onboarding-border-strong);
-  border-radius: 999px;
-  padding: 6px 10px;
-  line-height: 1;
-  white-space: nowrap;
-  max-width: 170px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 14px;
+  padding: 7px 10px;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .heroTagTop {
-  top: 12px;
-  left: 12px;
+  top: 10px;
+  left: 50%;
+  width: min(250px, calc(100% - 24px));
+  transform: translateX(-50%);
 }
 
 .heroTagLeft {
-  bottom: 12px;
-  left: 12px;
+  bottom: 10px;
+  left: 10px;
+  width: min(150px, 40%);
 }
 
 .heroTagRight {
-  bottom: 12px;
-  right: 12px;
+  bottom: 10px;
+  right: 10px;
+  width: min(140px, 38%);
 }
 
 .heroTracks {
@@ -306,23 +309,26 @@
 }
 
 .heroTrackTextRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
 }
 
 .heroTrackLabel {
-  font-size: clamp(0.8rem, 1.4vw, 0.9rem);
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .heroTrackValue {
-  font-size: 0.8rem;
+  font-size: 0.83rem;
   font-weight: 600;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
 .heroTrackBar {
@@ -565,9 +571,26 @@
     height: 204px;
   }
 
+  .heroTag {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+
+  .heroTagTop {
+    width: min(220px, calc(100% - 20px));
+  }
+
   .heroTagLeft,
   .heroTagRight {
     display: none;
+  }
+
+  .heroTrackLabel {
+    font-size: 0.82rem;
+  }
+
+  .heroTrackValue {
+    font-size: 0.78rem;
   }
 
   .actions {

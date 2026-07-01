@@ -14,8 +14,8 @@ const STEPS = [
     showHero: true,
     heroTracks: [
       { label: "Joint alignment scan", value: 96 },
+      { label: "Muscle loading", value: 91 },
       { label: "Knee tracking", value: 92 },
-      { label: "Hip depth control", value: 88 },
     ],
   },
   {
@@ -202,7 +202,7 @@ export default function OnboardingFlow() {
 
                 <div className={styles.scanSweep} />
                 <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
-                <span className={`${styles.heroTag} ${styles.heroTagLeft}`}>Core bracing</span>
+                <span className={`${styles.heroTag} ${styles.heroTagLeft}`}>Muscle loading</span>
                 <span className={`${styles.heroTag} ${styles.heroTagRight}`}>Knee tracking</span>
               </div>
 
