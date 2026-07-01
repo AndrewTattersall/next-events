@@ -215,9 +215,27 @@
   z-index: 2;
 }
 
+.heroPulse {
+  fill: rgba(255, 0, 64, 0.09);
+  animation: heroPulse 1.7s ease-in-out infinite;
+}
+
+.heroBarbell {
+  fill: none;
+  stroke: var(--color-text);
+  opacity: 0.74;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 192px 72px;
+  transform-box: fill-box;
+  animation: barbellShift 1.7s ease-in-out infinite;
+}
+
 .heroBody {
-  transform-origin: 192px 110px;
-  animation: heroPose 2.8s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: heroPose 1.7s ease-in-out infinite;
 }
 
 .heroHead {
@@ -256,7 +274,10 @@
 
 .heroJoints circle {
   fill: var(--color-accent);
-  opacity: 0.9;
+}
+
+.heroJoint {
+  animation: jointPulse 1.7s ease-in-out infinite;
 }
 
 .scanSweep {
@@ -272,7 +293,7 @@
     transparent 100%
   );
   z-index: 3;
-  animation: scanSweep 2.8s ease-in-out infinite;
+  animation: scanSweep 1.7s ease-in-out infinite;
 }
 
 .heroTag {
@@ -649,35 +670,72 @@
   100% {
     transform: translateY(0) scale(1);
   }
-  45% {
-    transform: translateY(8px) scale(0.98);
+  40% {
+    transform: translateY(10px) scale(0.97);
   }
-  65% {
-    transform: translateY(4px) scale(0.99);
+  62% {
+    transform: translateY(5px) scale(0.985);
   }
 }
 
 @keyframes scanSweep {
   0% {
     left: -35%;
-    opacity: 0.2;
+    opacity: 0.28;
   }
   40% {
-    opacity: 0.9;
+    opacity: 1;
   }
   100% {
     left: 100%;
-    opacity: 0.2;
+    opacity: 0.28;
   }
 }
 
 @keyframes muscleGlow {
   0%,
   100% {
-    opacity: 0.6;
+    opacity: 0.55;
   }
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes jointPulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.28);
+  }
+}
+
+@keyframes barbellShift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(8px);
+  }
+  62% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes heroPulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
   }
 }
 

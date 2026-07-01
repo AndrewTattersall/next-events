@@ -298,6 +298,16 @@ export default function OnboardingFlow() {
                   role="img"
                   aria-label="Animated squat posture anatomy scan"
                 >
+                  <ellipse className={styles.heroPulse} cx="192" cy="112" rx="66" ry="44" />
+
+                  <g className={styles.heroBarbell}>
+                    <path d="M114 72 H270" />
+                    <rect x="104" y="64" width="10" height="16" rx="2" />
+                    <rect x="270" y="64" width="10" height="16" rx="2" />
+                    <rect x="96" y="60" width="8" height="24" rx="2" />
+                    <rect x="280" y="60" width="8" height="24" rx="2" />
+                  </g>
+
                   <g className={styles.heroBody}>
                     <circle className={styles.heroHead} cx="192" cy="44" r="16" />
                     <path className={styles.heroBone} d="M192 60 L192 108" />
@@ -315,11 +325,11 @@ export default function OnboardingFlow() {
                   </g>
 
                   <g className={styles.heroJoints}>
-                    <circle cx="192" cy="82" r="4.5" />
-                    <circle cx="192" cy="108" r="4.5" />
-                    <circle cx="160" cy="138" r="4.5" />
-                    <circle cx="132" cy="172" r="4.5" />
-                    <circle cx="228" cy="130" r="4.5" />
+                    <circle className={styles.heroJoint} cx="192" cy="82" r="4.5" />
+                    <circle className={styles.heroJoint} cx="192" cy="108" r="4.5" />
+                    <circle className={styles.heroJoint} cx="160" cy="138" r="4.5" />
+                    <circle className={styles.heroJoint} cx="132" cy="172" r="4.5" />
+                    <circle className={styles.heroJoint} cx="228" cy="130" r="4.5" />
                   </g>
                 </svg>
 
