@@ -29,16 +29,19 @@ const STEPS = [
         icon: "📍",
         title: "Events near you",
         description: "See what's happening in your city this weekend.",
+        image: "nearby-map",
       },
       {
         icon: "🎵",
         title: "Every genre",
         description: "From house and techno to hip-hop and drum & bass.",
+        image: "genre-wave",
       },
       {
         icon: "⭐",
         title: "Curated picks",
         description: "Hand-picked highlights from the best venues and DJs.",
+        image: "curated-star",
       },
     ],
   },
@@ -53,16 +56,19 @@ const STEPS = [
         icon: "✏️",
         title: "Easy event creation",
         description: "Add details, set the vibe, and publish in minutes.",
+        image: "event-edit",
       },
       {
         icon: "📣",
         title: "Reach your audience",
         description: "Share with fans who love your sound.",
+        image: "promotion-reach",
       },
       {
         icon: "📊",
         title: "Track interest",
         description: "See who's excited about your upcoming sets.",
+        image: "interest-analytics",
       },
     ],
   },
@@ -94,6 +100,65 @@ export function isOnboardingComplete() {
 export function markOnboardingComplete() {
   if (typeof window === "undefined") return;
   localStorage.setItem(STORAGE_KEY, "true");
+}
+
+function FeatureIllustration({ type, label }) {
+  switch (type) {
+    case "nearby-map":
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <path d="M18 52 L40 36 L56 44 L82 24 L102 34" />
+          <circle cx="40" cy="36" r="4.5" />
+          <circle cx="82" cy="24" r="4.5" />
+        </svg>
+      );
+    case "genre-wave":
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <path d="M14 50 C24 36, 34 62, 44 46 C54 30, 66 60, 76 44 C86 28, 98 56, 108 40" />
+          <path d="M14 58 C24 44, 34 68, 44 54 C54 40, 66 66, 76 52 C86 36, 98 64, 108 50" />
+        </svg>
+      );
+    case "curated-star":
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <polygon points="60,18 67,34 84,36 72,47 76,64 60,55 44,64 48,47 36,36 53,34" />
+          <circle cx="28" cy="24" r="3.5" />
+          <circle cx="92" cy="26" r="3.5" />
+        </svg>
+      );
+    case "event-edit":
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <rect x="20" y="18" width="52" height="38" rx="8" />
+          <path d="M78 48 L98 28 L104 34 L84 54 L76 56 Z" />
+          <path d="M28 30 H60 M28 38 H54 M28 46 H48" />
+        </svg>
+      );
+    case "promotion-reach":
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <path d="M20 42 L54 28 L54 50 L20 36 Z" />
+          <path d="M54 32 C70 28, 82 28, 100 18 M54 40 C70 40, 82 40, 100 40 M54 48 C70 52, 82 52, 100 62" />
+          <circle cx="100" cy="40" r="4" />
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 120 76" role="img" aria-label={`${label} illustration`}>
+          <rect x="2" y="2" width="116" height="72" rx="12" />
+          <path d="M18 56 L36 42 L54 46 L76 30 L102 24" />
+          <circle cx="36" cy="42" r="4.5" />
+          <circle cx="76" cy="30" r="4.5" />
+          <circle cx="102" cy="24" r="4.5" />
+        </svg>
+      );
+  }
 }
 
 export default function OnboardingFlow() {
@@ -145,7 +210,7 @@ export default function OnboardingFlow() {
         </button>
       </div>
 
-      <div className={styles.card}>
+      <div className={`${styles.card} ${step.showHero ? styles.cardHeroStep : ""}`}>
         <div className={styles.progressTrack}>
           <div className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
@@ -161,7 +226,10 @@ export default function OnboardingFlow() {
           ))}
         </div>
 
-        <div key={animKey} className={styles.stepContent}>
+        <div
+          key={animKey}
+          className={`${styles.stepContent} ${step.showHero ? styles.stepContentHero : ""}`}
+        >
           <div style={{ textAlign: "center" }}>
             <span className={styles.badge}>{step.badge}</span>
           </div>
@@ -201,9 +269,13 @@ export default function OnboardingFlow() {
                 </svg>
 
                 <div className={styles.scanSweep} />
-                <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
-                <span className={`${styles.heroTag} ${styles.heroTagLeft}`}>Muscle loading</span>
-                <span className={`${styles.heroTag} ${styles.heroTagRight}`}>Knee tracking</span>
+                <div className={styles.heroAnnotations}>
+                  <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
+                  <div className={styles.heroTagRow}>
+                    <span className={styles.heroTag}>Muscle loading</span>
+                    <span className={styles.heroTag}>Knee tracking</span>
+                  </div>
+                </div>
               </div>
 
               {step.heroTracks && (
@@ -234,17 +306,24 @@ export default function OnboardingFlow() {
 
           {step.icon && <div className={styles.iconWrap}>{step.icon}</div>}
 
-          <h1 className={styles.title}>{step.title}</h1>
-          <p className={styles.subtitle}>{step.subtitle}</p>
+          <h1 className={`${styles.title} ${step.showHero ? styles.heroTitle : ""}`}>{step.title}</h1>
+          <p className={`${styles.subtitle} ${step.showHero ? styles.heroSubtitle : ""}`}>
+            {step.subtitle}
+          </p>
 
           {step.features && (
             <ul className={styles.featureList}>
               {step.features.map((feature) => (
                 <li key={feature.title} className={styles.featureItem}>
-                  <span className={styles.featureIcon}>{feature.icon}</span>
-                  <div className={styles.featureText}>
-                    <h3>{feature.title}</h3>
-                    <p>{feature.description}</p>
+                  <div className={styles.featureMedia}>
+                    <FeatureIllustration type={feature.image} label={feature.title} />
+                  </div>
+                  <div className={styles.featureBody}>
+                    <span className={styles.featureIcon}>{feature.icon}</span>
+                    <div className={styles.featureText}>
+                      <h3>{feature.title}</h3>
+                      <p>{feature.description}</p>
+                    </div>
                   </div>
                 </li>
               ))}

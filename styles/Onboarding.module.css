@@ -50,6 +50,10 @@
   transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.cardHeroStep {
+  max-width: 640px;
+}
+
 .progressTrack {
   height: 4px;
   background: var(--onboarding-border);
@@ -92,6 +96,10 @@
 
 .stepContent {
   animation: fadeSlideIn 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stepContentHero .badge {
+  margin-bottom: 12px;
 }
 
 .iconWrap {
@@ -143,13 +151,25 @@
   margin-bottom: 28px;
 }
 
+.heroTitle {
+  margin-bottom: 10px;
+}
+
+.heroSubtitle {
+  max-width: 58ch;
+  margin: 0 auto 28px;
+}
+
 .hero {
-  margin: 0 0 24px;
+  margin: 0 0 30px;
+  --hero-label-size: 0.7rem;
+  --hero-track-size: 0.84rem;
+  --hero-track-value-size: 0.8rem;
 }
 
 .heroVisual {
   position: relative;
-  height: 236px;
+  height: 274px;
   border-radius: 18px;
   border: 1px solid var(--onboarding-border);
   background: linear-gradient(
@@ -256,42 +276,44 @@
 }
 
 .heroTag {
-  position: absolute;
   z-index: 4;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.74rem;
+  font-size: var(--hero-label-size);
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--color-text);
   background: var(--onboarding-surface);
   border: 1px solid var(--onboarding-border-strong);
   border-radius: 14px;
-  padding: 7px 10px;
+  padding: 6px 9px;
   line-height: 1.2;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-align: center;
 }
 
+.heroAnnotations {
+  position: absolute;
+  z-index: 4;
+  inset: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
 .heroTagTop {
-  top: 10px;
-  left: 50%;
-  width: min(250px, calc(100% - 24px));
-  transform: translateX(-50%);
+  align-self: center;
+  max-width: min(236px, 100%);
 }
 
-.heroTagLeft {
-  bottom: 10px;
-  left: 10px;
-  width: min(150px, 40%);
-}
-
-.heroTagRight {
-  bottom: 10px;
-  right: 10px;
-  width: min(140px, 38%);
+.heroTagRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
 }
 
 .heroTracks {
@@ -316,7 +338,7 @@
 }
 
 .heroTrackLabel {
-  font-size: 0.88rem;
+  font-size: var(--hero-track-size);
   font-weight: 500;
   color: var(--color-text-muted);
   line-height: 1.25;
@@ -325,7 +347,7 @@
 }
 
 .heroTrackValue {
-  font-size: 0.83rem;
+  font-size: var(--hero-track-value-size);
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -357,13 +379,55 @@
 
 .featureItem {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 14px;
   padding: 14px 16px;
   background: var(--onboarding-surface-subtle);
   border: 1px solid var(--onboarding-border-subtle);
   border-radius: 14px;
   transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.featureMedia {
+  flex: 0 0 112px;
+  border-radius: 12px;
+  border: 1px solid var(--onboarding-border-subtle);
+  background: linear-gradient(135deg, var(--onboarding-surface-hover), var(--onboarding-surface));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.featureMedia svg {
+  width: 100%;
+  height: 100%;
+}
+
+.featureMedia svg rect {
+  fill: var(--onboarding-surface);
+  stroke: var(--onboarding-border-strong);
+}
+
+.featureMedia svg path,
+.featureMedia svg polygon {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.featureMedia svg circle {
+  fill: var(--color-accent);
+}
+
+.featureBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .featureItem:hover {
@@ -388,6 +452,8 @@
   font-weight: 600;
   color: var(--color-text);
   margin-bottom: 2px;
+  line-height: 1.25;
+  overflow-wrap: break-word;
 }
 
 .featureText p {
@@ -395,6 +461,7 @@
   color: var(--color-text-muted);
   line-height: 1.5;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 .genreGrid {
@@ -557,10 +624,70 @@
   }
 }
 
+@media (max-width: 760px) {
+  .card {
+    padding: 34px 24px 26px;
+  }
+
+  .hero {
+    --hero-label-size: 0.66rem;
+    --hero-track-size: 0.8rem;
+    --hero-track-value-size: 0.76rem;
+  }
+
+  .heroVisual {
+    height: 238px;
+  }
+
+  .heroTagRow {
+    gap: 6px;
+  }
+
+  .heroTrackTextRow {
+    gap: 8px;
+  }
+
+  .featureMedia {
+    flex-basis: 96px;
+  }
+}
+
+@media (max-width: 620px) {
+  .heroVisual {
+    height: 224px;
+  }
+
+  .heroTagRow {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .heroTagRow .heroTag {
+    width: min(170px, 100%);
+  }
+
+  .featureItem {
+    flex-direction: column;
+  }
+
+  .featureMedia {
+    width: 100%;
+    flex-basis: 88px;
+  }
+
+  .featureBody {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 32px 24px 24px;
     border-radius: 20px;
+  }
+
+  .cardHeroStep {
+    max-width: 100%;
   }
 
   .title {
@@ -568,29 +695,25 @@
   }
 
   .heroVisual {
-    height: 204px;
+    height: 224px;
+  }
+
+  .hero {
+    --hero-label-size: 0.64rem;
+    --hero-track-size: 0.78rem;
+    --hero-track-value-size: 0.74rem;
   }
 
   .heroTag {
-    font-size: 0.7rem;
-    padding: 6px 8px;
+    padding: 5px 8px;
+  }
+
+  .heroAnnotations {
+    inset: 8px;
   }
 
   .heroTagTop {
-    width: min(220px, calc(100% - 20px));
-  }
-
-  .heroTagLeft,
-  .heroTagRight {
-    display: none;
-  }
-
-  .heroTrackLabel {
-    font-size: 0.82rem;
-  }
-
-  .heroTrackValue {
-    font-size: 0.78rem;
+    max-width: 100%;
   }
 
   .actions {
@@ -610,5 +733,9 @@
     top: 16px;
     left: 16px;
     right: 16px;
+  }
+
+  .featureMedia {
+    flex-basis: 84px;
   }
 }
