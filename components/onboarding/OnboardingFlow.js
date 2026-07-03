@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import ThemeToggle from "../ThemeToggle";
 import styles from "../../styles/Onboarding.module.css";
 
@@ -192,15 +191,15 @@ export default function OnboardingFlow() {
             <div className={styles.hero}>
               <div className={styles.heroVisual}>
                 <div className={styles.heroImageWrap}>
-                  <Image
+                  {/* Plain <img> from /public so the hero renders even without
+                      the Next.js image optimizer (e.g. static export). */}
+                  <img
                     src={step.heroImage}
                     alt="Athlete performing a barbell squat with an anatomy scan overlay"
-                    layout="fill"
-                    objectFit="cover"
-                    priority
                   />
                 </div>
 
+                <div className={styles.heroFrame} />
                 <div className={styles.scanSweep} />
 
                 {HERO_MARKERS.map((marker) => (
@@ -247,12 +246,7 @@ export default function OnboardingFlow() {
 
           {!step.showHero && step.stepImage && (
             <div className={styles.stepVisual}>
-              <Image
-                src={step.stepImage}
-                alt={`${step.title} visual`}
-                layout="fill"
-                objectFit="cover"
-              />
+              <img src={step.stepImage} alt={`${step.title} visual`} />
             </div>
           )}
 
@@ -261,12 +255,7 @@ export default function OnboardingFlow() {
               {step.features.map((feature) => (
                 <li key={feature.title} className={styles.featureItem}>
                   <div className={styles.featureMedia}>
-                    <Image
-                      src={feature.image}
-                      alt={`${feature.title} illustration`}
-                      layout="fill"
-                      objectFit="cover"
-                    />
+                    <img src={feature.image} alt={`${feature.title} illustration`} />
                   </div>
                   <div className={styles.featureBody}>
                     <span className={styles.featureIcon}>{feature.icon}</span>
