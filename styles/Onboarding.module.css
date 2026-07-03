@@ -162,7 +162,6 @@
 
 .hero {
   margin: 0 0 30px;
-  --hero-overlay-text-size: 0.6rem;
 }
 
 .heroVisual {
@@ -180,108 +179,66 @@
   overflow: hidden;
 }
 
+/* Slow lateral drift at a constant scale, so the image never appears
+   to grow or shrink when the step remounts. */
 .heroImageWrap {
   position: absolute;
   inset: 0;
   z-index: 1;
-  animation: kenBurns 16s ease-in-out infinite alternate;
+  transform: scale(1.06);
+  animation: heroDrift 14s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 .heroMarker {
   position: absolute;
   z-index: 3;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(255, 0, 64, 0.22), 0 0 16px rgba(255, 0, 64, 0.8);
-  animation: jointPulse 1.7s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255, 0, 64, 0.9);
 }
 
-.heroMarker:nth-of-type(2) {
-  animation-delay: 0.3s;
+.heroMarker::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 0, 64, 0.7);
+  animation: markerRing 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
 }
 
-.heroMarker:nth-of-type(3) {
-  animation-delay: 0.55s;
+.heroMarker:nth-of-type(2)::after {
+  animation-delay: 0.4s;
 }
 
-.heroMarker:nth-of-type(4) {
+.heroMarker:nth-of-type(3)::after {
   animation-delay: 0.8s;
+}
+
+.heroMarker:nth-of-type(4)::after {
+  animation-delay: 1.2s;
 }
 
 .scanSweep {
   position: absolute;
-  left: -35%;
   top: 0;
-  width: 35%;
-  height: 100%;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  border-radius: 999px;
   background: linear-gradient(
-    90deg,
+    180deg,
     transparent 0%,
-    rgba(255, 0, 64, 0.25) 50%,
+    rgba(255, 0, 64, 0.85) 30%,
+    rgba(255, 0, 64, 0.85) 70%,
     transparent 100%
   );
+  box-shadow: 0 0 14px rgba(255, 0, 64, 0.5);
   z-index: 3;
-  animation: scanSweep 1.7s ease-in-out infinite;
-}
-
-.heroTag {
-  z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--hero-overlay-text-size);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(245, 245, 247, 0.85);
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
-}
-
-.heroAnnotations {
-  position: absolute;
-  z-index: 4;
-  inset: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 8px;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.heroTagTop {
-  align-self: center;
-  max-width: min(220px, 100%);
-}
-
-.heroTagRow {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  align-items: end;
-  width: 100%;
-}
-
-.heroTagStart {
-  justify-self: start;
-  text-align: left;
-}
-
-.heroTagEnd {
-  justify-self: end;
-  text-align: right;
+  animation: scanSweep 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 .heroTracks {
@@ -306,7 +263,7 @@
 }
 
 .heroTrackLabel {
-  font-size: var(--hero-overlay-text-size);
+  font-size: 12px;
   font-weight: 500;
   color: var(--color-text-muted);
   line-height: 1.25;
@@ -316,7 +273,7 @@
 }
 
 .heroTrackValue {
-  font-size: var(--hero-overlay-text-size);
+  font-size: 12px;
   font-weight: 500;
   color: var(--color-text);
   white-space: nowrap;
@@ -338,6 +295,16 @@
   border-radius: inherit;
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-warm));
   box-shadow: 0 0 12px var(--onboarding-next-shadow);
+  transform-origin: left center;
+  animation: fillGrow 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.heroTrackItem:nth-child(2) .heroTrackFill {
+  animation-delay: 0.15s;
+}
+
+.heroTrackItem:nth-child(3) .heroTrackFill {
+  animation-delay: 0.3s;
 }
 
 .stepVisual {
@@ -357,6 +324,12 @@
   overflow: hidden;
 }
 
+.stepVisual img {
+  transform: scale(1.06);
+  animation: heroDrift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 .featureList {
   list-style: none;
   display: flex;
@@ -374,6 +347,15 @@
   border: 1px solid var(--onboarding-border-subtle);
   border-radius: 14px;
   transition: border-color 0.2s ease, background 0.2s ease;
+  animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.featureItem:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.featureItem:nth-child(3) {
+  animation-delay: 0.16s;
 }
 
 .featureMedia {
@@ -386,6 +368,15 @@
   border: 1px solid var(--onboarding-border-subtle);
   background: linear-gradient(135deg, var(--onboarding-surface-hover), var(--onboarding-surface));
   overflow: hidden;
+}
+
+.featureMedia img {
+  transform: scale(1.08);
+  transition: transform 0.5s ease;
+}
+
+.featureItem:hover .featureMedia img {
+  transform: scale(1.14);
 }
 
 .featureBody {
@@ -551,38 +542,50 @@
   }
 }
 
-@keyframes kenBurns {
+@keyframes heroDrift {
   from {
-    transform: scale(1) translate(0, 0);
+    transform: scale(1.06) translate(-0.8%, -0.5%);
   }
   to {
-    transform: scale(1.09) translate(-1.5%, -1%);
+    transform: scale(1.06) translate(0.8%, 0.5%);
   }
 }
 
 @keyframes scanSweep {
   0% {
-    left: -35%;
-    opacity: 0.28;
+    left: 3%;
+    opacity: 0;
   }
-  40% {
+  10% {
+    opacity: 1;
+  }
+  90% {
     opacity: 1;
   }
   100% {
-    left: 100%;
-    opacity: 0.28;
+    left: 97%;
+    opacity: 0;
   }
 }
 
-@keyframes jointPulse {
-  0%,
-  100% {
-    opacity: 0.78;
-    transform: scale(1);
+@keyframes markerRing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.28);
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes fillGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -591,20 +594,8 @@
     padding: 34px 24px 26px;
   }
 
-  .hero {
-    --hero-overlay-text-size: 0.56rem;
-  }
-
   .heroVisual {
     height: 238px;
-  }
-
-  .heroTagRow {
-    gap: 6px;
-  }
-
-  .heroTrackTextRow {
-    gap: 8px;
   }
 
   .featureMedia {
@@ -621,17 +612,6 @@
 @media (max-width: 620px) {
   .heroVisual {
     height: 224px;
-  }
-
-  .heroTagRow {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .heroTagRow .heroTag {
-    width: min(156px, 100%);
-    text-align: center;
-    justify-self: center;
   }
 
   .featureItem {
@@ -670,22 +650,6 @@
 
   .heroVisual {
     height: 224px;
-  }
-
-  .hero {
-    --hero-overlay-text-size: 0.52rem;
-  }
-
-  .heroTag {
-    letter-spacing: 0.01em;
-  }
-
-  .heroAnnotations {
-    inset: 8px;
-  }
-
-  .heroTagTop {
-    max-width: 100%;
   }
 
   .actions {

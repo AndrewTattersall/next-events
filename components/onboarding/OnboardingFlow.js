@@ -210,14 +210,6 @@ export default function OnboardingFlow() {
                     style={{ top: marker.top, left: marker.left }}
                   />
                 ))}
-
-                <div className={styles.heroAnnotations}>
-                  <span className={`${styles.heroTag} ${styles.heroTagTop}`}>Joint alignment scan</span>
-                  <div className={styles.heroTagRow}>
-                    <span className={`${styles.heroTag} ${styles.heroTagStart}`}>Muscle load</span>
-                    <span className={`${styles.heroTag} ${styles.heroTagEnd}`}>Knee path</span>
-                  </div>
-                </div>
               </div>
 
               {step.heroTracks && (
